@@ -18,8 +18,7 @@ async function main() {
 	const args = process.argv.slice(2);
 
 	// Contract address, update with Token contract address
-	// Test token address - 0xc09B35aE268db3c956f6e03CCE536fE0a29b59eF
-	const tokenAddress = "0x9805944Da4F69978dffc4c02eA924911D668d81a";
+	const tokenAddress = "0x9805944Da4F69978dffc4c02eA924911D668d81a"; // Group 6 Token Contract
 
 	// Connect to deployed contract
 	const tokenContract = tokenFactory.attach(tokenAddress) as G6Token;
@@ -89,14 +88,13 @@ async function main() {
 		console.log(`\nAccount ${addressFrom} has ${ethers.formatUnits(votes).toString()} units of voting power\n`);
 	}
 
-	// 'getPastVotes' function (check past voting power)
+	// 'getPastVotes' function (check voting power at target block number)
 	async function getPastVotes(addressFrom: string, blockIndex: number) {
-		const lastBlock = await provider.getBlock("latest");
-		const lastBlockNumber = lastBlock?.number ?? 0;
+		const lastBlock = await provider.getBlockNumber();
 		const pastVotes = await tokenContract.getPastVotes(addressFrom, blockIndex);
-		const presentVotes = await tokenContract.getPastVotes(addressFrom, lastBlockNumber);
+		const presentVotes = await tokenContract.getPastVotes(addressFrom, lastBlock - 1);
 		console.log(`\nAccount ${addressFrom} had ${ethers.formatUnits(pastVotes).toString()} units of voting power at block ${blockIndex}\n`);
-		console.log(`Account ${addressFrom} has ${ethers.formatUnits(presentVotes).toString()} units of voting power at block ${lastBlockNumber}\n`);
+		console.log(`Account ${addressFrom} has ${ethers.formatUnits(presentVotes).toString()} units of voting power at latest block ${lastBlock}\n`);
 	}
 }
 

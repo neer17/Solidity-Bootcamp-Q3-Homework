@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-/// @title Voting with delegation.
 
 interface IG6Token {
 	function getPastVotes(address, uint256) external view returns (uint256);
