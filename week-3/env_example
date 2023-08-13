@@ -1,0 +1,6 @@
+MNEMONIC = "here is where your twelve words mnemonic should be put my friend"
+MY_WALLET_PRIVATE_KEY = kjashdgkjsdbgkjsgbnkjsbgksg
+INFURA_API_KEY = "********************************"
+INFURA_API_SECRET = "********************************"
+PROVIDER_KEY = Qsdgfskjdgbskgjdfg
+ETHERSCAN_API_KEY = "********************************"
