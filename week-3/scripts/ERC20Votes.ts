@@ -56,7 +56,8 @@ async function main() {
 		await mintTx.wait();
 		console.log(`Minted ${ethers.formatUnits(amount).toString()} tokens to account ${addressTo}`);
 		const balanceBN = await tokenContract.balanceOf(addressTo);
-		console.log(`Account ${addressTo} has ${ethers.formatUnits(balanceBN).toString()} tokens\n`);
+		console.log(`Account ${addressTo} has ${ethers.formatUnits(balanceBN).toString()} tokens`);
+		console.log("Tx hash:", mintTx.hash, "\n");
 	}
 
 	// 'delegate' function (delegate to self to activate voting power or delegate to another account to pass on voting power)
@@ -65,7 +66,8 @@ async function main() {
 		const votesBefore = await tokenContract.balanceOf(walletAddress);
 		const delegateTx = await tokenContract.delegate(addressTo);
 		await delegateTx.wait();
-		console.log(`Account ${walletAddress} delegated ${ethers.formatUnits(votesBefore).toString()} units of voting power to ${addressTo}\n`);
+		console.log(`Account ${walletAddress} delegated ${ethers.formatUnits(votesBefore).toString()} units of voting power to ${addressTo}`);
+		console.log("Tx hash:", delegateTx.hash, "\n");
 	}
 
 	// 'transfer' function
@@ -73,7 +75,8 @@ async function main() {
 		console.log("\nTransfering tokens...");
 		const transferTx = await tokenContract.transfer(addressTo, amount);
 		await transferTx.wait();
-		console.log(`Account ${walletAddress} transfered ${ethers.formatUnits(amount).toString()} tokens to ${addressTo}\n`);
+		console.log(`Account ${walletAddress} transfered ${ethers.formatUnits(amount).toString()} tokens to ${addressTo}`);
+		console.log("Tx hash:", transferTx.hash, "\n");
 	}
   
 	// 'balanceOf' function (check balance)
