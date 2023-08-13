@@ -30,7 +30,7 @@ async function main() {
 	// Deploy the contract with Proposals passed as input arguments (tokenContract and tragetBlockNumber are hardcoded in the script, check above variables)
 	async function deployBallot(propos: string[]) {
 		const proposals = process.argv.slice(3);
-		console.log("Deploying TokenizedBallot contract");
+		console.log("\nDeploying TokenizedBallot contract...");
 		console.log("Proposals: ");
 		proposals.forEach((element, index) => {
 			console.log(`Proposal N. ${index + 1}: ${element}`);
@@ -47,6 +47,7 @@ async function main() {
 	};
 
 	// Contract address, change to contract address
+	// const tokenizedBallotAddress = "0xCeb0eD06CA08d025ddf9A2aaE4f02e56a8e9DAB0"; // Test TokenizedBallot Contract
 	const tokenizedBallotAddress = "0x86194b8C24DB66Ef9ACFA70b4c2fc837F0684961"; // Group 6 TokenizedBallot Contract
 
 	// Connect to deployed contract
@@ -79,9 +80,9 @@ async function main() {
 	};
 
 	// 'votingPower' function (check the voting power) 
-	async function votingPower(addressFrom: string) {
-		const votes = await tokenizedBallotContract.votingPower(addressFrom);
-		console.log(`\nAccount ${addressFrom} has ${ethers.formatUnits(votes).toString()} units of voting power\n`);
+	async function votingPower(account: string) {
+		const votes = await tokenizedBallotContract.votingPower(account);
+		console.log(`\nAccount ${account} has ${ethers.formatUnits(votes).toString()} units of voting power\n`);
 	};
 
 	// 'checkProposals' function, check proposals info (must manually set number of proposals at numberProposals variable)

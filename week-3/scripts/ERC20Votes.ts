@@ -50,54 +50,54 @@ async function main() {
 	}
 
 	// 'mint' function
-	async function mint(addressTo: string, amount: bigint) {
+	async function mint(to: string, amount: bigint) {
 		console.log("\nMinting tokens...");
-		const mintTx = await tokenContract.mint(addressTo, amount); // or contract.connect(deployer / acc1).mint...
+		const mintTx = await tokenContract.mint(to, amount); // or contract.connect(deployer / acc1).mint...
 		await mintTx.wait();
-		console.log(`Minted ${ethers.formatUnits(amount).toString()} tokens to account ${addressTo}`);
-		const balanceBN = await tokenContract.balanceOf(addressTo);
-		console.log(`Account ${addressTo} has ${ethers.formatUnits(balanceBN).toString()} tokens`);
+		console.log(`Minted ${ethers.formatUnits(amount).toString()} tokens to account ${to}`);
+		const balanceBN = await tokenContract.balanceOf(to);
+		console.log(`Account ${to} has ${ethers.formatUnits(balanceBN).toString()} tokens`);
 		console.log("Tx hash:", mintTx.hash, "\n");
 	}
 
 	// 'delegate' function (delegate to self to activate voting power or delegate to another account to pass on voting power)
-	async function delegate(addressTo: string) {
+	async function delegate(to: string) {
 		console.log("\nDelegating voting power...");
 		const votesBefore = await tokenContract.balanceOf(walletAddress);
-		const delegateTx = await tokenContract.delegate(addressTo);
+		const delegateTx = await tokenContract.delegate(to);
 		await delegateTx.wait();
-		console.log(`Account ${walletAddress} delegated ${ethers.formatUnits(votesBefore).toString()} units of voting power to ${addressTo}`);
+		console.log(`Account ${walletAddress} delegated ${ethers.formatUnits(votesBefore).toString()} units of voting power to ${to}`);
 		console.log("Tx hash:", delegateTx.hash, "\n");
 	}
 
 	// 'transfer' function
-	async function transfer(addressTo: string, amount: bigint) {
+	async function transfer(to: string, amount: bigint) {
 		console.log("\nTransfering tokens...");
-		const transferTx = await tokenContract.transfer(addressTo, amount);
+		const transferTx = await tokenContract.transfer(to, amount);
 		await transferTx.wait();
-		console.log(`Account ${walletAddress} transfered ${ethers.formatUnits(amount).toString()} tokens to ${addressTo}`);
+		console.log(`Account ${walletAddress} transfered ${ethers.formatUnits(amount).toString()} tokens to ${to}`);
 		console.log("Tx hash:", transferTx.hash, "\n");
 	}
   
 	// 'balanceOf' function (check balance)
-	async function balanceOf(addressFrom: string) {
-		const balance = await tokenContract.balanceOf(addressFrom);
-		console.log(`\nAccount ${addressFrom} has ${ethers.formatUnits(balance).toString()} tokens\n`);
+	async function balanceOf(account: string) {
+		const balance = await tokenContract.balanceOf(account);
+		console.log(`\nAccount ${account} has ${ethers.formatUnits(balance).toString()} tokens\n`);
 	}
 
 	// 'getVotes' function (check the voting power)
-	async function getVotes(addressFrom: string) {
-		const votes = await tokenContract.getVotes(addressFrom);
-		console.log(`\nAccount ${addressFrom} has ${ethers.formatUnits(votes).toString()} units of voting power\n`);
+	async function getVotes(account: string) {
+		const votes = await tokenContract.getVotes(account);
+		console.log(`\nAccount ${account} has ${ethers.formatUnits(votes).toString()} units of voting power\n`);
 	}
 
 	// 'getPastVotes' function (check voting power at target block number)
-	async function getPastVotes(addressFrom: string, blockIndex: number) {
+	async function getPastVotes(account: string, timepoint: number) {
 		const lastBlock = await provider.getBlockNumber();
-		const pastVotes = await tokenContract.getPastVotes(addressFrom, blockIndex);
-		const presentVotes = await tokenContract.getPastVotes(addressFrom, lastBlock - 1);
-		console.log(`\nAccount ${addressFrom} had ${ethers.formatUnits(pastVotes).toString()} units of voting power at block ${blockIndex}\n`);
-		console.log(`Account ${addressFrom} has ${ethers.formatUnits(presentVotes).toString()} units of voting power at latest block ${lastBlock}\n`);
+		const pastVotes = await tokenContract.getPastVotes(account, timepoint);
+		const presentVotes = await tokenContract.getPastVotes(account, lastBlock - 1);
+		console.log(`\nAccount ${account} had ${ethers.formatUnits(pastVotes).toString()} units of voting power at block ${timepoint}`);
+		console.log(`Account ${account} has ${ethers.formatUnits(presentVotes).toString()} units of voting power at latest block ${lastBlock}\n`);
 	}
 }
 
