@@ -22,7 +22,7 @@ async function main() {
 	const tokenContract = "0x9805944Da4F69978dffc4c02eA924911D668d81a"; // Group 6 Token Contract
 
 	// Block number (timestamp) to consider existing voting power
-	const targetBlockNumber = 4085000; // Expected to end Mon Aug 14 2023 04:07:51 GMT+0100 (Western European Summer Time)
+	const targetBlockNumber = 4081590;
 
 	// Number of proposals
 	const numberProposals = 3;
@@ -47,7 +47,7 @@ async function main() {
 	};
 
 	// Contract address, change to contract address
-	const tokenizedBallotAddress = "0x96f08A36dc862A2FB694A10C6571a4CB1892012f"; // Group 6 TokenizedBallot Contract
+	const tokenizedBallotAddress = "0x86194b8C24DB66Ef9ACFA70b4c2fc837F0684961"; // Group 6 TokenizedBallot Contract
 
 	// Connect to deployed contract
 	const tokenizedBallotContract = tokenizedBallotFactory.attach(tokenizedBallotAddress) as TokenizedBallot;
